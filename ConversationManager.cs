@@ -41,17 +41,14 @@ public class ConversationManager : Singleton<ConversationManager>
              //   Debug.Log("empiezo conversacion ");
                 talking = true;
                 DisplayConversation(conversation, numPensamiento);
-                //StartCoroutine(DisplayConversation(conversation));
             }
         }
     }
    
     public void EndConversation()
     {
- 
         talking = false;
         StopAllCoroutines();
-        
     }
 
     
@@ -84,16 +81,12 @@ public class ConversationManager : Singleton<ConversationManager>
                     StartCoroutine(TypeSentence(currentConversationLine.ConversationText));
                  //   Debug.Log("Esta es la linea " + currentConversationLine.ConversationText);
                 }
-
-
-
             }
         }
       }
 
         IEnumerator TypeSentence(string sentence)
     {
-       // if (talking == false) yield return null;
         if (textHolder == null)
         {
             yield return null;
@@ -104,20 +97,8 @@ public class ConversationManager : Singleton<ConversationManager>
             if (talking == false) yield return null;
             if (textHolder == false) yield return null;
             textHolder.text += letter;
-
-            //yield return null;
             yield return new WaitForSeconds(velDespliegueChar);
         }
-        // esto es nuevo ojo
-        
-        // esto lo quito para que el pensamiento desaparezca cuando se entra a otro objeto
-        /*
-        yield return new WaitForSeconds(1f);
-        */
-
-       // talking = false;
-        
-        //
     }
 
 
@@ -127,7 +108,6 @@ public class ConversationManager : Singleton<ConversationManager>
         //if (talking)
         if(talking && dialogBox != null)
         {
-            // esto es nuevo, a ver si modifico los tamaños de los contenedores
             RectTransform rT = UnityEngine.GameObject.Find("DialogBox").GetComponent<RectTransform>();
             float numLineas = (float)currentConversationLine.ConversationText.Length / 50;
             if (numLineas == 0) numLineas = 1f;
@@ -147,7 +127,6 @@ public class ConversationManager : Singleton<ConversationManager>
         }
         else  // talking = false;
         {
-            // aqui no estaba este if, solo las lineas de dialogBox...
             if (dialogBox != null)
             {
                 dialogBox.alpha = 0;
